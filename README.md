@@ -17,6 +17,10 @@ A simple and functional calculator application built for Android as part of a sc
 - Error handling for empty inputs
 - Instant calculation results
 
+## Screenshot
+
+![Calculator App](https://github.com/DJNavz1423/_MyCalculator/blob/01432706bc98e327077dbd1d391adbdfcabd612f/Screenshot_20250907_002647.png)
+
 ## Implementation Details
 
 This project was developed using Android Studio with Java. The interface follows a linear layout design with clear input fields and operation buttons.
