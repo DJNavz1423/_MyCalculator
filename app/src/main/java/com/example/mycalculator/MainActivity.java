@@ -65,26 +65,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // calculation for the two numbers when a specific button is clicked
         if (view.getId() == R.id.btn_add){
             this.result = num1 + num2;
-            textView.setText("Answer = " + this.result);
+            textView.setText(getString(R.string.answer_format, String.valueOf(this.result)));
         }
 
         else if (view.getId() == R.id.btn_sub){
             this.result = num1 - num2;
-            textView.setText("Answer = " + this.result);
+            textView.setText(getString(R.string.answer_format, String.valueOf(this.result)));
         }
 
         else if (view.getId() == R.id.btn_mul){
             this.result = num1 * num2;
-            textView.setText("Answer = " + this.result);
+            textView.setText(getString(R.string.answer_format, String.valueOf(this.result)));
         }
 
         else if (view.getId() == R.id.btn_div){
             if(num2 == 0)
-                textView.setText("Cannot divide by zero");
+                textView.setText(R.string.division_by_zero);
 
             else{
                 this.result = (float)num1 / (float)num2;
-                textView.setText("Answer = " + this.result);
+                textView.setText(getString(R.string.answer_format, String.valueOf(this.result)));
             }
 
         }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //function to get integer value from EditText
     public int getIntFromEditText(EditText editText){
         if(editText.getText().toString().isEmpty()){
-            Toast.makeText( this, "Enter a number", Toast.LENGTH_SHORT).show();
+            Toast.makeText( this, R.string.enter_number, Toast.LENGTH_SHORT).show();
             return 0;
         } else
             return Integer.parseInt(editText.getText().toString());
