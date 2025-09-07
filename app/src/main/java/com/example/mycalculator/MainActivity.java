@@ -11,64 +11,92 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
                                             //OnClickListener implemented for the buttons functions
 
-    // Object declaration for Inputs, Buttons, and the Calculated Result
-    Button buttonAdd, buttonSub, buttonMul, buttonDiv; //button objects
-    EditText editTextN1, editTextN2; //input objects
-    TextView textView; //result object
-    int num1, num2; //number variables
+    // Object declaration for UI components
+    Button buttonAdd, buttonSub, buttonMul, buttonDiv;
+    EditText editTextN1, editTextN2;
+    TextView textView;
+
+    // Data Variables
+    int num1 = 0, num2 = 0;
+    double result = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //instantiation of Objects with the Id from the activity_main.xml
-        buttonAdd = findViewById(R.id.btn_add);
-        buttonSub = findViewById(R.id.btn_sub);
-        buttonMul = findViewById(R.id.btn_mul);
-        buttonDiv = findViewById(R.id.btn_div);
-
-        editTextN1 = findViewById(R.id.number1);
-        editTextN2 = findViewById(R.id.number2);
-
-        textView = findViewById(R.id.answer);
-
-        //applying On Click Listener for the operation buttons
-        buttonAdd.setOnClickListener(this);
-        buttonSub.setOnClickListener(this);
-        buttonMul.setOnClickListener(this);
-        buttonDiv.setOnClickListener(this);
-
-
+       objectInstantiation();
+       buttonClickListener();
     }
 
-    //function to get the number from the editText input
+    public void objectInstantiation(){
+        //instantiation of UI components with the Id from the activity_main.xml
+        this.buttonAdd = findViewById(R.id.btn_add);
+        this.buttonSub = findViewById(R.id.btn_sub);
+        this.buttonMul = findViewById(R.id.btn_mul);
+        this.buttonDiv = findViewById(R.id.btn_div);
+
+        this.editTextN1 = findViewById(R.id.number1);
+        this.editTextN2 = findViewById(R.id.number2);
+
+        this.textView = findViewById(R.id.answer);
+    }
+
+    public void buttonClickListener(){
+        //applying On Click Listener for the operation buttons
+        this.buttonAdd.setOnClickListener(this);
+        this.buttonSub.setOnClickListener(this);
+        this.buttonMul.setOnClickListener(this);
+        this.buttonDiv.setOnClickListener(this);
+    }
+
+    // Handle button click events
+    @Override
+    public void onClick(View view) {
+        // input numbers will get stored in these variables
+        this.num1 = getIntFromEditText(editTextN1);
+        this.num2 = getIntFromEditText(editTextN2);
+
+        calculate(this.textView, this.num1, this.num2, view);
+    }
+
+    //function that perform the calculations based on buttons clicked
+    public void calculate(TextView textView, int num1, int num2, View view){
+        // calculation for the two numbers when a specific button is clicked
+        if (view.getId() == R.id.btn_add){
+            this.result = num1 + num2;
+            textView.setText("Answer = " + this.result);
+        }
+
+        else if (view.getId() == R.id.btn_sub){
+            this.result = num1 - num2;
+            textView.setText("Answer = " + this.result);
+        }
+
+        else if (view.getId() == R.id.btn_mul){
+            this.result = num1 * num2;
+            textView.setText("Answer = " + this.result);
+        }
+
+        else if (view.getId() == R.id.btn_div){
+            if(num2 == 0)
+                textView.setText("Cannot divide by zero");
+
+            else{
+                this.result = (float)num1 / (float)num2;
+                textView.setText("Answer = " + this.result);
+            }
+
+        }
+    }
+
+    //function to get integer value from EditText
     public int getIntFromEditText(EditText editText){
         if(editText.getText().toString().isEmpty()){
             Toast.makeText( this, "Enter a number", Toast.LENGTH_SHORT).show();
             return 0;
         } else
             return Integer.parseInt(editText.getText().toString());
-            // return the input number
-    }
-
-    @Override
-    public void onClick(View view) {
-        // input numbers will get stored in these variables
-        num1 = getIntFromEditText(editTextN1);
-        num2 = getIntFromEditText(editTextN2);
-
-        // calculation for the two numbers when a specific button is clicked
-        if (view.getId() == R.id.btn_add)
-            textView.setText("Answer = " + (num1 + num2));
-
-        else if (view.getId() == R.id.btn_sub)
-            textView.setText("Answer = " + (num1 - num2));
-
-        else if (view.getId() == R.id.btn_mul)
-            textView.setText("Answer = " + (num1 * num2));
-
-        else if (view.getId() == R.id.btn_div)
-            textView.setText("Answer = " + ((float)num1 / (float)num2));
+        // return the input number
     }
 }
